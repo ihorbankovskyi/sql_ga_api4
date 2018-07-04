@@ -69,6 +69,8 @@ def print_response(response, url):
 
           for value in dateRangeValues:
               val = (value.get('values'))
+              x.execute("""UPDATE search_console_data SET nusers = (%s) WHERE url = (%s) AND date = (%s)""", (val, url, my_date))
+              time.sleep(0.1)
               x.execute("""INSERT INTO ga_urls (ganusers, gaurl, gadate) VALUES (%s, %s, %s)""", (val, url, my_date))
               db.commit()
 
