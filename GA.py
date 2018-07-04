@@ -6,7 +6,7 @@ from db import db
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
-KEY_FILE_LOCATION = '/home/ubuntu/ga - api/preply - seo - concsole - e65b56dfb586.json'
+KEY_FILE_LOCATION = '/home/ubuntu/ga-api/preply-seo-concsole-e65b56dfb586.json'
 VIEW_ID = '147771775'
 my_date = input("enter date like: 2018-06-25  ")
 
