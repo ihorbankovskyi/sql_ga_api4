@@ -1,14 +1,14 @@
-"""Hello Analytics Reporting API V4."""
-
+"""Google Analytics API V4 used"""
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
+"""Import database settings from db file"""
 from db import db
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = '/Users/Ihor/Documents/PreplyAPI/GA/preply-seo-concsole-e65b56dfb586.json'
 VIEW_ID = '147771775'
-my_date = input("vvedi date kak: 2018-06-25  ")
+my_date = input("enter date like: 2018-06-25  ")
 
 
 
