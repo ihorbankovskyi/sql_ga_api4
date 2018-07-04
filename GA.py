@@ -77,13 +77,16 @@ def print_response(response, url):
 
 
 def main():
-    analytics = initialize_analyticsreporting()
-    urls = fetch()
-    for url in urls:
-        response = get_report(analytics, url)
-        print_response(response, url)
-        time.sleep(1)
-        print url + " done\n******"
+    try:
+        analytics = initialize_analyticsreporting()
+        urls = fetch()
+        for url in urls:
+            response = get_report(analytics, url)
+            print_response(response, url)
+            time.sleep(1)
+            print url + " done\n******"
+    except Exception as e:
+        print e.message, e.args
 
 if __name__ == '__main__':
   main()
