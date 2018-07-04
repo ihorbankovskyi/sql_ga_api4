@@ -5,6 +5,7 @@ from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 """Import database settings from db file"""
 from db import db
+import time
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
@@ -81,6 +82,7 @@ def main():
     for url in urls:
         response = get_report(analytics, url)
         print_response(response, url)
+        time.sleep(.1)
         print url + " done\n******"
 
 if __name__ == '__main__':
