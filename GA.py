@@ -82,7 +82,7 @@ def main():
     for url in urls:
         response = get_report(analytics, url)
         print_response(response, url)
-        time.sleep(1)
+        time.sleep(0.8)
         print url + " done\n******"
 
 if __name__ == '__main__':
