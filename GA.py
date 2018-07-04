@@ -5,9 +5,6 @@ from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 """Import database settings from db file"""
 from db import db
-import sys
-reload(sys)
-sys.setdefaultencoding("ISO-8859-1")
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
@@ -56,7 +53,7 @@ def get_report(analytics, url):
           'dateRanges': [{'startDate':my_date, 'endDate':my_date}],
           'metrics': [{'expression': 'ga:newUsers'}],
           'dimensions': [{'name': 'ga:landingPagePath'}],
-          'dimensionFilterClauses': [{'filters': [{"dimensionName": "ga:landingPagePath","operator": "EXACT","expressions": [url]}]}],
+          'dimensionFilterClauses': [{'filters': [{"dimensionName": "ga:landingPagePath","operator": "EXACT","expressions": [url.decode('windows-1252')]}]}],
           'samplingLevel': 'LARGE'
         }]
       }
