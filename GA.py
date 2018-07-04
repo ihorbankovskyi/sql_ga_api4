@@ -5,6 +5,9 @@ from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 """Import database settings from db file"""
 from db import db
+import sys
+reload(sys)
+sys.setdefaultencoding("ISO-8859-1")
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
