@@ -1,4 +1,6 @@
 """Google Analytics API V4 used"""
+# -*- coding: utf-8 -*-
+# encoding=utf8
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 """Import database settings from db file"""
