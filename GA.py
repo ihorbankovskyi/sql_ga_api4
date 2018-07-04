@@ -1,6 +1,4 @@
 """Google Analytics API V4 used"""
-# -*- coding: utf-8 -*-
-# encoding=utf8
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 """Import database settings from db file"""
@@ -71,7 +69,7 @@ def print_response(response, url):
 
           for value in dateRangeValues:
               val = (value.get('values'))
-              x.execute("""UPDATE search_console_data SET nusers = (%s) WHERE url = (%s) AND date = (%s)""", (val, url, my_date))
+              x.execute("""INSERT INTO ga_urls (ganusers, gaurl, gadate) VALUES (%s, %s, %s)""", (val, url, my_date))
               db.commit()
 
 
@@ -82,7 +80,7 @@ def main():
     for url in urls:
         response = get_report(analytics, url)
         print_response(response, url)
-        time.sleep(0.8)
+        time.sleep(1)
         print url + " done\n******"
 
 if __name__ == '__main__':
