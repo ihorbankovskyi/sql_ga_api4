@@ -17,7 +17,7 @@ my_date = raw_input("enter date like: 2018-06-25  ")
 
 def fetch():
     c = db.cursor()
-    c.execute("""SELECT DISTINCT url FROM search_console_data WHERE date=%s and nusers=0""", (my_date,))
+    c.execute("""SELECT DISTINCT url FROM search_console_data WHERE (date=%s and nusers=0) AND (version = 1 or version = 2)""", (my_date,))
     fetch = c.fetchall()
     for f_row in fetch:
         url = f_row[0]
