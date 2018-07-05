@@ -4,7 +4,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 """Import database settings from db file"""
 from db import db
 import time
-
+from contextlib import closing
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
 KEY_FILE_LOCATION = '/home/ubuntu/ga-api/preply-seo-concsole-e65b56dfb586.json'
@@ -14,12 +14,12 @@ my_date = raw_input("enter date like: 2018-06-25  ")
 
 
 def fetch():
-    c = db.cursor()
-    c.execute("""SELECT DISTINCT url FROM search_console_data WHERE (date=%s and nusers=0) AND (version = 1 or version = 2)""", (my_date,))
-    fetch = c.fetchall()
-    for f_row in fetch:
-        url = f_row[0]
-        yield url
+    with closing(db.cursor()) as c:
+        c.execute("""SELECT DISTINCT url FROM search_console_data WHERE (date=%s and nusers=0) AND (version = 1 or version = 2)""", (my_date,))
+        fetch = c.fetchall()
+        for f_row in fetch:
+            url = f_row[0]
+            yield url
 
 def initialize_analyticsreporting():
   """Initializes an Analytics Reporting API V4 service object.
@@ -61,18 +61,18 @@ def get_report(analytics, url):
 
 
 def print_response(response, url):
-    x = db.cursor()
-    for report in response.get('reports', []):
+    with closing(db.cursor()) as x:
+        for report in response.get('reports', []):
 
-        for row in report.get('data', {}).get('rows', []):
-          dateRangeValues = row.get('metrics', [])
+            for row in report.get('data', {}).get('rows', []):
+              dateRangeValues = row.get('metrics', [])
 
-          for value in dateRangeValues:
-              val = (value.get('values'))
-              x.execute("""UPDATE search_console_data SET nusers = (%s) WHERE url = (%s) AND date = (%s)""", (val, url, my_date))
-              time.sleep(0.1)
-              x.execute("""INSERT INTO ga_urls (ganusers, gaurl, gadate) VALUES (%s, %s, %s)""", (val, url, my_date))
-              db.commit()
+              for value in dateRangeValues:
+                  val = (value.get('values'))
+                  x.execute("""UPDATE search_console_data SET nusers = (%s) WHERE url = (%s) AND date = (%s)""", (val, url, my_date))
+                  db.commit()
+                  x.execute("""INSERT INTO ga_urls (ganusers, gaurl, gadate) VALUES (%s, %s, %s)""", (val, url, my_date))
+                  db.commit()
 
 
 
