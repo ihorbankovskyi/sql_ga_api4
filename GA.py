@@ -72,7 +72,6 @@ def print_response(response, url):
                   x.execute(
                       """UPDATE search_console_data SET nusers = (%s), user_check = 1 WHERE url = (%s) AND date = (%s)""",
                       (val, url, my_date))
-                  db.commit()
                   x.execute("""INSERT INTO ga_urls (ganusers, gaurl, gadate) VALUES (%s, %s, %s)""", (val, url, my_date))
                   db.commit()
 
