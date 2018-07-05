@@ -85,7 +85,7 @@ def main():
             response = get_report(analytics, url)
             print_response(response, url)
             time.sleep(0.9)
-            print index, url + " done\n******"
+            print index, my_date, url + " done\n******"
     except Exception as e:
         print e.message, e.args
     except HttpError, error:
