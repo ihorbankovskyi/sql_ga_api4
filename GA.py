@@ -80,11 +80,11 @@ def main():
     try:
         analytics = initialize_analyticsreporting()
         urls = fetch()
-        for url in urls:
+        for index, url in enumerate(urls):
             response = get_report(analytics, url)
             print_response(response, url)
             time.sleep(1)
-            print url + " done\n******"
+            print index, url + " done\n******"
     except Exception as e:
         print e.message, e.args
 
