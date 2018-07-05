@@ -84,10 +84,14 @@ def main():
         for index, url in enumerate(urls):
             response = get_report(analytics, url)
             print_response(response, url)
-            time.sleep(1)
+            time.sleep(0.9)
             print index, url + " done\n******"
     except Exception as e:
         print e.message, e.args
+    except HttpError, error:
+        if error.resp.reason in ['userRateLimitExceeded', 'quotaExceeded',
+                                 'internalServerError', 'backendError']:
+            print "GA API error"
 
 if __name__ == '__main__':
   main()
