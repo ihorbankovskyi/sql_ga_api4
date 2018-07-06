@@ -84,7 +84,7 @@ def main():
         for index, url in enumerate(urls):
             response = get_report(analytics, url)
             print_response(response, url)
-            time.sleep(0.9)
+            time.sleep(0.5)
             print index, my_date, url + " done\n******"
     except Exception as e:
         print e.message, e.args
