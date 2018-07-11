@@ -20,6 +20,7 @@ def fetch():
         for f_row in fetch:
             url = f_row[0]
             yield url
+        print len(fetch)
 
 def initialize_analyticsreporting():
   """Initializes an Analytics Reporting API V4 service object.
